@@ -221,14 +221,20 @@ t = s:option(ListValue, "type", translate("Policy"),
 t:value("proxy", translate("Via proxy"))
 t:value("reject", translate("Reject access"))
 
+tt = s:option(ListValue, "proxytype", translate("Proxy Type"),
+	translate("<em>HTTP Proxy</em> - http upstream proxy type, <em>SOCKS 4 proxy</em> - socks 4 upstream proxy type, <em>SOCKS 5 proxy</em> - socks 5 upstream proxy type, <em>No proxy</em> - no upstream proxy"))
+
+tt:depends({type="proxy"})
+tt:value("http", translate("HTTP proxy"))
+tt:value("socks4", translate("SOCKS 4 proxy"))
+tt:value("socks5", translate("SOCKS 5 proxy"))
+tt:value("none", translate("No proxy"))
 
 ta = s:option(Value, "target", translate("Target host"),
 	translate("Can be either an IP address or range, a domain name or \".\" for any host without domain"))
 
 ta.rmempty = true
 ta.placeholder = "0.0.0.0/0"
-ta.datatype = "host(1)"
-
 
 v = s:option(Value, "via", translate("Via proxy"),
 	translate("Specifies the upstream proxy to use for accessing the target host. Format is <code>address:port</code>"))
